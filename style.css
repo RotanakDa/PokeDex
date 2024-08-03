@@ -1,0 +1,272 @@
+/* Custom Pokémon Theme Styles */
+
+body.pokemon-theme {
+    background-color: #202020; /* Dark background */
+    transition: background-color 0.3s;
+}
+
+body.dark-mode {
+    
+    background-color: #f8f9fa; /* Light background */
+}
+.navbar-brand {
+    font-family: 'Pokemon Solid', sans-serif;
+    font-size: 1.5rem;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.jumbotron {
+    background-image: url('pokemon-background.jpg'); /* Replace with a Pokémon-themed background image */
+    background-size: cover;
+    background-position: center;
+    padding: 50px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.jumbotron h1,
+.jumbotron p {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Text shadow for better visibility */
+}
+
+.btn-outline-light {
+    color: #fff;
+    border-color: #fff;
+}
+
+.stats-container,
+.moves-container {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background for stats and moves */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stats-container .stat,
+.moves-container table {
+    margin-bottom: 20px;
+}
+
+.pokemon-type {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 5px;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle shadow effect */
+    font-size: 14px; /* Adjust font size as needed */
+}
+
+/* Example color classes for Pokémon types */
+.bug { background-color: #a8b820; }
+.dark { background-color: #705848; }
+.dragon { background-color: #7038f8; }
+.electric { background-color: #f8d030; }
+.fairy { background-color: #ee99ac; }
+.fighting { background-color: #c03028; }
+.fire { background-color: #f08030; }
+.flying { background-color: #a890f0; }
+.ghost { background-color: #705898; }
+.grass { background-color: #78c850; }
+.ground { background-color: #e0c068; }
+.ice { background-color: #98d8d8; }
+.normal { background-color: #a8a878; }
+.poison { background-color: #a040a0; }
+.psychic { background-color: #f85888; }
+.rock { background-color: #b8a038; }
+.steel { background-color: #b8b8d0; }
+.water { background-color: #6890f0; }
+
+.footer {
+    background-color: #333; /* Dark background for footer */
+    color: #fff;
+    padding: 20px 0;
+}
+
+.stats-container, .moves-container {
+    display: none;
+}
+
+/* Custom styles */
+#pokemonSprite {
+    width: 350px;
+    height: 350px;
+    display: none;
+}
+.stats-container, .moves-container {
+    margin-top: 20px;
+}
+.stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.stat-bar {
+    width: 60%;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-left: 10px;
+}
+
+.stat-bar-fill {
+    height: 100%;
+}
+.stat-name {
+    margin-right: 10px;
+    flex-basis: 20%;
+}
+.stat-value {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    flex-basis: 10%;
+    text-align: right;
+}
+.stat-bar {
+    flex-grow: 1;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-left: 10px;
+}
+.stat-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+}
+
+.pokemon-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pokemon-details-container {
+    width: 60%;
+}
+
+.pokemon-sprite-container {
+    width: 40%;
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .pokemon-details-container, .pokemon-sprite-container {
+        width: 100%;
+        text-align: center;
+    }
+    .pokemon-sprite-container {
+        margin-top: 20px;
+    }
+}
+
+.pokemon-details p {
+    margin: 0;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pokemon-details strong {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.pokemon-type {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 5px;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle shadow effect */
+    font-size: 14px; /* Adjust font size as needed */
+}
+
+/* Example color classes for Pokémon types */
+.bug { background-color: #a8b820; }
+.dark { background-color: #705848; }
+.dragon { background-color: #7038f8; }
+.electric { background-color: #f8d030; }
+.fairy { background-color: #ee99ac; }
+.fighting { background-color: #c03028; }
+.fire { background-color: #f08030; }
+.flying { background-color: #a890f0; }
+.ghost { background-color: #705898; }
+.grass { background-color: #78c850; }
+.ground { background-color: #e0c068; }
+.ice { background-color: #98d8d8; }
+.normal { background-color: #a8a878; }
+.poison { background-color: #a040a0; }
+.psychic { background-color: #f85888; }
+.rock { background-color: #b8a038; }
+.steel { background-color: #b8b8d0; }
+.water { background-color: #6890f0; }
+
+.category-icon {
+    font-size: 2.1rem; /* Adjust size as needed */
+}
+
+#pokemonList {
+    font-size: 16px; /* Adjust font size as needed */
+    padding: 10px; /* Padding around the suggestion list */
+    max-height: 200px; /* Limit the maximum height of the suggestion list */
+    overflow-y: auto; /* Enable vertical scrolling if the list exceeds max height */
+    background-color: #fff; /* Background color */
+    border: 1px solid #ccc; /* Border */
+    border-radius: 4px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
+}
+
+/* Style for Pokémon Name Suggestion Options */
+#pokemonList option {
+    padding: 8px; /* Padding around each suggestion option */
+    cursor: pointer; /* Cursor style on hover */
+}
+
+/* Style for Pokémon Name Input Field */
+#pokemonName {
+    font-size: 18px; /* Adjust input field font size */
+    padding: 12px; /* Padding inside the input field */
+    border-radius: 4px; /* Rounded corners */
+    border: 1px solid #ccc; /* Border */
+    width: 100%; /* Full width */
+}
+
+/* Optional: Adjust focus style for input field */
+#pokemonName:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #007bff; /* Border color on focus */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Box shadow on focus */
+}
+
+/* Pokemon Cry Btn */
+.hear-cry-btn {
+    background-color: #72afed; /* Dark background color */
+    color: #ffffff; /* White text color */
+    border-color: #343a40; /* Dark border color */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hear-cry-btn:hover {
+    background-color: #ffffff; /* White background color on hover */
+    color: #343a40; /* Dark text color on hover */
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}

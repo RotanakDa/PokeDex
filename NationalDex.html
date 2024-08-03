@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokéDex By Love</title>
+    <link rel="shortcut icon" href="Pokeball.png" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="nationalDex.css">
+</head>
+
+<body class="pokemon-theme">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="PokéDex.html">
+            <img src="Pokeball.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="PokeDex Logo"> Made By <i class="fas fa-heart"></i>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="PokéDex.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-light" id="themeToggleBtn">Light Mode</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Session -->
+    <main>
+        <div class="container">
+            <!-- Sorting dropdown for generations -->
+            <div class="row my-3">
+                <div class="col-md-6 offset-md-3">
+                    <select class="form-control bg-dark text-light" id="genSort">
+                        <option value="0">All Regions</option>
+                        <option value="1">Generation 1 "Kanto"</option>
+                        <option value="2">Generation 2 "Johto"</option>
+                        <option value="3">Generation 3 "Hoenn"</option>
+                        <option value="4">Generation 4 "Sinnoh"</option>
+                        <option value="5">Generation 5 "Unova"</option>
+                        <option value="6">Generation 6 "Kalos"</option>
+                        <option value="7">Generation 7 "Alola"</option>
+                        <option value="8">Generation 8 "Galar"</option>
+                        <option value="9">Generation 9 "Paldea"</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Pokémon listing -->
+            <div class="row" id="pokemon-list">
+                <!-- Pokémon will be dynamically added here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript for fetching and displaying Pokémon -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('https://pokeapi.co/api/v2/pokemon?limit=1118') // Fetching all Pokémon (limit 1118 covers all known Pokémon)
+                .then(response => response.json())
+                .then(data => {
+                    const pokemonList = document.getElementById('pokemon-list');
+                    const pokemonUrls = data.results.map(pokemon => pokemon.url);
+
+                    // Function to create Pokémon card HTML
+                    const createPokemonCard = (pokemonData) => {
+                        // Capitalize only the first letter and keep the rest lowercase
+                        const capitalizedPokemonName = pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1).toLowerCase();
+
+                        const pokemonCard = document.createElement('div');
+                        pokemonCard.classList.add('col-lg-2', 'col-md-3', 'col-sm-4', 'mb-4', 'pokemon-card', 'card', 'border-primary', 'text-center');
+                        pokemonCard.innerHTML = `
+                            <div class="card-body">
+                                <img src="${pokemonData.sprites.front_default}" class="card-img-top" alt="${pokemonData.name}">
+                                <div class="card-body">
+                                    <h5 class="card-title font-weight-bold">${capitalizedPokemonName}</h5>
+                                    <p class="card-text">ID: ${pokemonData.id}</p>
+                                    <p class="card-text">${pokemonData.types.map(type => `<span class="pokemon-type ${type.type.name}">${type.type.name}</span>`).join(' ')}</p>
+                                </div>
+                            </div>
+                        `;
+                        return pokemonCard;
+                    };
+
+                    // Function to fetch and display each Pokémon
+                    pokemonUrls.forEach(url => {
+                        fetch(url)
+                            .then(response => response.json())
+                            .then(pokemonData => {
+                                const pokemonCard = createPokemonCard(pokemonData);
+                                pokemonList.appendChild(pokemonCard);
+                            })
+                            .catch(error => console.log('Error fetching Pokémon:', error));
+                    });
+
+                    // Sort Pokémon by Generation
+                    const genSortSelect = document.getElementById('genSort');
+                    genSortSelect.addEventListener('change', function () {
+                        const genValue = parseInt(this.value);
+                        let filteredPokemons = [];
+
+                        if (genValue === 0) {
+                            // Show all Pokémon if "Sort by Generation" is selected
+                            filteredPokemons = data.results.map(pokemon => pokemon.url);
+                        } else {
+                            // Filter Pokémon by generation
+                            filteredPokemons = data.results.filter(pokemon => {
+                                const pokemonId = pokemon.url.split('/')[6];
+                                switch (genValue) {
+                                    case 1:
+                                        return pokemonId <= 151; // Gen 1: Pokémon IDs 1 to 151
+                                    case 2:
+                                        return pokemonId > 151 && pokemonId <= 251; // Gen 2: Pokémon IDs 152 to 251
+                                    case 3:
+                                        return pokemonId > 251 && pokemonId <= 386; // Gen 3: Pokémon IDs 252 to 386
+                                    case 4:
+                                        return pokemonId > 386 && pokemonId <= 493; // Gen 4: Pokémon IDs 387 to 493
+                                    case 5:
+                                        return pokemonId > 493 && pokemonId <= 649; // Gen 5: Pokémon IDs 494 to 649
+                                    case 6:
+                                        return pokemonId > 649 && pokemonId <= 721; // Gen 6: Pokémon IDs 650 to 721
+                                    case 7:
+                                        return pokemonId > 721 && pokemonId <= 809; // Gen 7: Pokémon IDs 722 to 809
+                                    case 8:
+                                        return pokemonId > 809 && pokemonId <= 898; // Gen 8: Pokémon IDs 810 to 898
+                                    case 9:
+                                        return pokemonId > 898 && pokemonId <= 1025; // Gen 9: Pokémon IDs 899 onwards
+                                    default:
+                                        return false;
+                                }
+                            }).map(pokemon => pokemon.url);
+                        }
+
+                        // Clear current Pokémon list
+                        pokemonList.innerHTML = '';
+
+                        // Fetch and display Pokémon based on filtered list
+                        filteredPokemons.forEach(url => {
+                            fetch(url)
+                                .then(response => response.json())
+                                .then(pokemonData => {
+                                    const pokemonCard = createPokemonCard(pokemonData);
+                                    pokemonList.appendChild(pokemonCard);
+                                })
+                                .catch(error => console.log('Error fetching Pokémon:', error));
+                        });
+                    });
+                })
+                .catch(error => console.log('Error fetching Pokémon list:', error));
+        });
+    </script>
+    
+    
+    
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
